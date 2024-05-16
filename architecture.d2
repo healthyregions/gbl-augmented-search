@@ -1,0 +1,43 @@
+direction: right
+classes: {
+
+    dashed-line: {
+  
+        style: {
+  
+            stroke-dash: 3
+        
+          }
+  
+    }
+  
+  }
+
+l: Local Repo
+l.repo: |md
+- Edit function
+- Build Docker image
+- Push to ECR
+|
+
+aws: AWS
+
+aws.ecr: ECR
+
+l -> aws.ecr
+
+aws.lambda: Lambda
+
+aws.ecr -- aws.lambda: {
+    class: dashed-line
+} 
+aws.gateway: API Gateway
+aws.lambda -- aws.gateway: {
+    class: dashed-line
+} 
+
+aws.gateway -> web client
+aws.gateway <- web client
+
+aws.gateway -> Solr
+aws.gateway <- Solr
