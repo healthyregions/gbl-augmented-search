@@ -153,9 +153,14 @@ def get_response(url, headers, params):
 	target = f"{url_parts.path}?{query_string}" if params else url_parts.path
 	connection.request("GET", target, headers=headers)
 	response = connection.getresponse()
-	data = gzip.decompress(response.read())
-	return json.loads(data.decode())
-
+	data = response.read()
+	## add handling for non-gzip response
+	try:
+		results = gzip.decompress(data)
+		return json.loads(results.decode())
+	except Exception as e:
+		results = data.decode()
+		return json.loads(results)
 
 # Function to handle the POST request
 def post_response(url, headers, params, data):
