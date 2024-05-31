@@ -45,11 +45,9 @@ class Query:
 				expanded[token] = expanded.get(token, 0)
 				expanded[token] += tokens[token]
 		expanded = dict(sorted(expanded.items(), key=lambda item: -item[1]))
-		print(expanded)
 		for q in query.split(" "):
 			expanded[q] = 1
 		rtn = " ".join(list(expanded.keys()))
-		print(rtn)
 		return rtn
 
 
@@ -212,11 +210,14 @@ def respond(err, res=None):
 
 
 def handle_get(dynamic_route, headers, params):
-	if params and params.get("q"):
-		dynamic_route = "search"
+
+	print(f"INFO: route received = {dynamic_route}")
+	if dynamic_route == "search" and params.get("q"):
 		params["df"] = "text"
 		query = Query()
+		print(f"INFO: input query terms = {params["q"]}")
 		params["q"] = query.get_query_expansion(params["q"])
+		print(f"INFO: expanded query terms = {params["q"]}")
 
 	url = f"{SOLR_URL}{SOLR_BASE}{dynamic_route}"
 	response = get_response(url, headers, params)
