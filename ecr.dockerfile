@@ -2,7 +2,7 @@
 FROM public.ecr.aws/lambda/python:3.11
 
 # Set environment variables
-ENV API_BASE=/SDOH/ \
+ENV API_BASE=/ \
     SOLR_URL=http://3.132.90.207:8983 \
     SOLR_BASE=/solr/blacklight-core/
 
