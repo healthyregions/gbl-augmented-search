@@ -42,6 +42,8 @@ aws ecr create-repository \
 docker build -f ./ecr.dockerfile -t lambda_nltk .
 ```
 
+-t is the image name
+
 ## Adding Tag to the Docker Build
 ```bash
 docker tag lambda_nltk:latest <account number?>.dkr.ecr.us-east-2.amazonaws.com/geoblacklight-search-plugin
@@ -54,7 +56,7 @@ docker tag lambda_nltk:latest <account number?>.dkr.ecr.us-east-2.amazonaws.com/
 docker push <account number?>.dkr.ecr.us-east-2.amazonaws.com/geoblacklight-search-plugin
 ```
 
-### One-liner
+### Single command for edited rebuild
 
 ```
 docker build -f ./ecr.dockerfile -t lambda_nltk . && \
